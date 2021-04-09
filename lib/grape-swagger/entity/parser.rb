@@ -81,7 +81,7 @@ module GrapeSwagger
         {
           allOf: [
             {
-              '$ref' => "#/definitions/#{parent_name}"
+              '$ref' => "#{Constants::REFERENCE_PREFIX}/#{parent_name}"
             },
             [
               add_discriminator(parsed, discriminator),

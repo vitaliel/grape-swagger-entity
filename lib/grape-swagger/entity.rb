@@ -7,6 +7,7 @@ require 'grape-swagger/entity/version'
 require 'grape-swagger/entity/helper'
 require 'grape-swagger/entity/attribute_parser'
 require 'grape-swagger/entity/parser'
+require 'grape-swagger/entity/constants'
 
 module GrapeSwagger
   module Entity

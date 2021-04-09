@@ -98,12 +98,12 @@ module GrapeSwagger
           {
             'type' => 'array',
             'items' => {
-              '$ref' => "#/definitions/#{name}"
+              '$ref' => "#{Constants::REFERENCE_PREFIX}/#{name}"
             }
           }
         else
           {
-            '$ref' => "#/definitions/#{name}"
+            '$ref' => "#{Constants::REFERENCE_PREFIX}/#{name}"
           }
         end
       end

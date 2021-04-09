@@ -22,3 +22,8 @@ RSpec.configure do |config|
 end
 
 Dir['spec/support/**/*.rb'].each { |file| require "./#{file}" }
+
+REFERENCE_PREFIX = GrapeSwagger::Entity::Constants::REFERENCE_PREFIX
+REFERENCE_PREFIX_PATH = REFERENCE_PREFIX.split('/')[1..].freeze
+
+require 'pry'

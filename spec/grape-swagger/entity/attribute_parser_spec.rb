@@ -16,7 +16,7 @@ describe GrapeSwagger::Entity::AttributeParser do
         let(:entity_options) { { using: ThisApi::Entities::Tag, documentation: { is_array: true } } }
 
         it { is_expected.to include('type' => 'array') }
-        it { is_expected.to include('items' => { '$ref' => '#/definitions/Tag' }) }
+        it { is_expected.to include('items' => { '$ref' => "#{REFERENCE_PREFIX}/Tag" }) }
 
         context 'when it contains min_items' do
           let(:entity_options) { { using: ThisApi::Entities::Tag, documentation: { is_array: true, min_items: 1 } } }
@@ -41,7 +41,7 @@ describe GrapeSwagger::Entity::AttributeParser do
         let(:entity_options) { { using: ThisApi::Entities::Kind, documentation: { type: 'ThisApi::Kind', desc: 'The kind of this something.' } } }
 
         it { is_expected.to_not include('type') }
-        it { is_expected.to include('$ref' => '#/definitions/Kind') }
+        it { is_expected.to include('$ref' => "#{REFERENCE_PREFIX}/Kind") }
       end
     end
 

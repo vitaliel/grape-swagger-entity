@@ -16,9 +16,9 @@ describe GrapeSwagger::Entity::Parser do
         let(:endpoint) { nil }
 
         it 'parses the model with the correct :using definition' do
-          expect(properties[:kind]['$ref']).to eq('#/definitions/Kind')
-          expect(properties[:kind2]['$ref']).to eq('#/definitions/Kind')
-          expect(properties[:kind3]['$ref']).to eq('#/definitions/Kind')
+          expect(properties[:kind]['$ref']).to eq("#{REFERENCE_PREFIX}/Kind")
+          expect(properties[:kind2]['$ref']).to eq("#{REFERENCE_PREFIX}/Kind")
+          expect(properties[:kind3]['$ref']).to eq("#{REFERENCE_PREFIX}/Kind")
         end
 
         it 'merges attributes that have merge: true defined' do
@@ -66,7 +66,7 @@ describe GrapeSwagger::Entity::Parser do
           all_of = properties[:allOf]
           child_property = all_of.last.first
           child_required = all_of.last.last
-          expect(all_of.first['$ref']).to eq('#/definitions/Parent')
+          expect(all_of.first['$ref']).to eq("#{REFERENCE_PREFIX}/Parent")
           expect(child_property[:name][:type]).to eq('string')
           expect(child_property[:type][:type]).to eq('string')
           expect(child_property[:type][:enum]).to eq(['Child'])

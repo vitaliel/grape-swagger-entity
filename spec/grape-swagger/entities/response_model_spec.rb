@@ -40,7 +40,7 @@ describe 'responseModel' do
     expect(subject['definitions'].keys).to include 'ThisApi_Entities_Error'
     expect(subject['definitions']['ThisApi_Entities_Error']).to eq(
       'type' => 'object',
-      'description' => 'This returns something or an error',
+      'description' => 'ThisApi_Entities_Error model',
       'properties' => {
         'code' => { 'type' => 'string', 'description' => 'Error code' },
         'message' => { 'type' => 'string', 'description' => 'Error message' }
@@ -50,15 +50,15 @@ describe 'responseModel' do
     expect(subject['definitions'].keys).to include 'ThisApi_Entities_Something'
     expect(subject['definitions']['ThisApi_Entities_Something']).to eq(
       'type' => 'object',
-      'description' => 'This returns something',
+      'description' => 'ThisApi_Entities_Something model',
       'properties' =>
           { 'text' => { 'type' => 'string', 'description' => 'Content of something.' },
             'colors' => { 'type' => 'array', 'items' => { 'type' => 'string' }, 'description' => 'Colors' },
-            'kind' => { '$ref' => '#/definitions/ThisApi_Entities_Kind', 'description' => 'The kind of this something.' },
-            'kind2' => { '$ref' => '#/definitions/ThisApi_Entities_Kind', 'description' => 'Secondary kind.' },
-            'kind3' => { '$ref' => '#/definitions/ThisApi_Entities_Kind', 'description' => 'Tertiary kind.' },
-            'tags' => { 'type' => 'array', 'items' => { '$ref' => '#/definitions/ThisApi_Entities_Tag' }, 'description' => 'Tags.' },
-            'relation' => { '$ref' => '#/definitions/ThisApi_Entities_Relation', 'description' => 'A related model.' },
+            'kind' => { '$ref' => "#{REFERENCE_PREFIX}/ThisApi_Entities_Kind", 'description' => 'The kind of this something.' },
+            'kind2' => { '$ref' => "#{REFERENCE_PREFIX}/ThisApi_Entities_Kind", 'description' => 'Secondary kind.' },
+            'kind3' => { '$ref' => "#{REFERENCE_PREFIX}/ThisApi_Entities_Kind", 'description' => 'Tertiary kind.' },
+            'tags' => { 'type' => 'array', 'items' => { '$ref' => "#{REFERENCE_PREFIX}/ThisApi_Entities_Tag" }, 'description' => 'Tags.' },
+            'relation' => { '$ref' => "#{REFERENCE_PREFIX}/ThisApi_Entities_Relation", 'description' => 'A related model.' },
             'code' => { 'type' => 'string', 'description' => 'Error code' },
             'message' => { 'type' => 'string', 'description' => 'Error message' },
             'attr' => { 'type' => 'string', 'description' => 'Attribute' } },
@@ -154,7 +154,7 @@ describe 'building definitions from given entities' do
 
       class ResponseEntityApi < Grape::API
         format :json
-        desc 'This returns something',
+        desc 'ThisApi_Entities_Something model',
              is_array: true,
              entity: Entities::SomeEntity
         get '/some_entity' do
@@ -253,8 +253,8 @@ describe 'building definitions from given entities' do
     expect(subject['TheseApi_Entities_Polymorphic']).to eql(
       'type' => 'object',
       'properties' => {
-        'kind' => { '$ref' => '#/definitions/TheseApi_Entities_Kind', 'description' => 'Polymorphic Kind' },
-        'values' => { '$ref' => '#/definitions/TheseApi_Entities_Values', 'description' => 'Polymorphic Values' },
+        'kind' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Kind", 'description' => 'Polymorphic Kind' },
+        'values' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Values", 'description' => 'Polymorphic Values' },
         'str' => { 'type' => 'string', 'description' => 'Polymorphic String' },
         'num' => { 'type' => 'integer', 'format' => 'int32', 'description' => 'Polymorphic Number' }
       }
@@ -264,20 +264,20 @@ describe 'building definitions from given entities' do
       'type' => 'object',
       'properties' => {
         'text' => { 'type' => 'string', 'description' => 'Content of something.' },
-        'kind' => { '$ref' => '#/definitions/TheseApi_Entities_Kind', 'description' => 'The kind of this something.' },
-        'kind2' => { '$ref' => '#/definitions/TheseApi_Entities_Kind', 'description' => 'Secondary kind.' },
-        'kind3' => { '$ref' => '#/definitions/TheseApi_Entities_Kind', 'description' => 'Tertiary kind.' },
-        'tags' => { 'type' => 'array', 'items' => { '$ref' => '#/definitions/TheseApi_Entities_Tag' }, 'description' => 'Tags.' },
-        'relation' => { '$ref' => '#/definitions/TheseApi_Entities_Relation', 'description' => 'A related model.' },
-        'values' => { '$ref' => '#/definitions/TheseApi_Entities_Values', 'description' => 'Tertiary kind.' },
-        'nested' => { '$ref' => '#/definitions/TheseApi_Entities_Nested', 'description' => 'Nested object.' },
+        'kind' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Kind", 'description' => 'The kind of this something.' },
+        'kind2' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Kind", 'description' => 'Secondary kind.' },
+        'kind3' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Kind", 'description' => 'Tertiary kind.' },
+        'tags' => { 'type' => 'array', 'items' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Tag" }, 'description' => 'Tags.' },
+        'relation' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Relation", 'description' => 'A related model.' },
+        'values' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Values", 'description' => 'Tertiary kind.' },
+        'nested' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Nested", 'description' => 'Nested object.' },
         'code' => { 'type' => 'string', 'description' => 'Error code' },
         'message' => { 'type' => 'string', 'description' => 'Error message' },
-        'polymorphic' => { '$ref' => '#/definitions/TheseApi_Entities_Polymorphic', 'description' => 'Polymorphic Model' },
+        'polymorphic' => { '$ref' => "#{REFERENCE_PREFIX}/TheseApi_Entities_Polymorphic", 'description' => 'Polymorphic Model' },
         'attr' => { 'type' => 'string', 'description' => 'Attribute' }
       },
       'required' => %w[attr],
-      'description' => 'This returns something'
+      'description' => 'TheseApi_Entities_SomeEntity model'
     )
   end
 end
